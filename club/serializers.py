@@ -23,6 +23,7 @@ class AdminUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         admin = User(
             email=validated_data['email'],
+            full_name=validated_data['full_name'],
         )
         admin.set_password(validated_data['password'])
         admin.is_staff = True
@@ -39,6 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(
             email=validated_data['email'],
+            full_name=validated_data['full_name'],
         )
         user.set_password(validated_data['password'])
         user.save() 
