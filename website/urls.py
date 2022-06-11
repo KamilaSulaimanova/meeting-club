@@ -11,6 +11,9 @@ router = DefaultRouter()
 router.register('category', views.CategoryViewSet, basename='category')
 router.register('group', views.GroupViewSet, basename='group')
 router.register('profile', views.UserProfile, basename='profile')
+router.register('post', views.PostViewSet, basename='post')
+router.register('comment', views.CommentViewSet, basename='comment')
+router.register('like', views.LikeViewSet, basename='like')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
