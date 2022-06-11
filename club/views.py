@@ -3,10 +3,12 @@ from rest_framework.viewsets import ModelViewSet
 from .serializers import *
 from rest_framework import authentication, permissions
 from .permissions import *
-from .models import User
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from .serializers import AdminUserSerializer, UserSerializer
 from rest_framework import authentication, permissions
+
+
+User = get_user_model()
 
 
 class CategoryViewSet(ModelViewSet):
@@ -56,7 +58,7 @@ class PostViewSet(ModelViewSet):
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthor,  permissions.IsAdminUser ]
+    permission_classes = [IsAuthorIsAdmin, ]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     def perform_create(self, serializer):
@@ -66,7 +68,7 @@ class CommentViewSet(ModelViewSet):
 class LikeViewSet(ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
-    permission_classes = [IsAuthor,  permissions.IsAdminUser ]
+    permission_classes = [IsAuthorIsAdmin, ]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     def perform_create(self, serializer):

@@ -39,7 +39,6 @@ class Group(models.Model):
 class Post(models.Model):
     text = models.CharField(max_length=255)
     publication_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
