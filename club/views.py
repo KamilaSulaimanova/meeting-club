@@ -1,3 +1,6 @@
+from unicodedata import category
+
+from django.shortcuts import get_object_or_404
 from .models import *
 from rest_framework.viewsets import ModelViewSet
 from .serializers import *
@@ -41,7 +44,8 @@ class UserCreateView(CreateAPIView):
 class UserProfile(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    http_method_names = ['get', 'update', 'delete',]
+    http_method_names = ['get', 'put', 'delete',]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     def get_object(self):
         return self.request.user
@@ -50,8 +54,15 @@ class UserProfile(ModelViewSet):
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [ permissions.IsAdminUser, ]
+    permission_classes = [IsSafeIsAuthenticated, ]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     for p in self.queryset.iterator():
+    #         if 
+    #     return Post.objects.filter(group_id__in=user.groups.id)
 
     
 
@@ -73,3 +84,8 @@ class LikeViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+def search(request):
+    category_id = get_object_or_404(Category, id=id)
+    queryset = Group.objects.filter(category=category_id)

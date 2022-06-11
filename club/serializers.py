@@ -23,7 +23,6 @@ class AdminUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         admin = User(
             email=validated_data['email'],
-            full_name=validated_data['full_name'],
         )
         admin.set_password(validated_data['password'])
         admin.is_staff = True
@@ -33,9 +32,11 @@ class AdminUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer(many=True,)
+    
     class Meta:
         model = User
-        fields = ['email', 'password', 'full_name', 'instagram', 'facebook', 'telegram']
+        fields = ['email', 'password', 'full_name', 'instagram', 'facebook', 'telegram', 'groups',]
 
     def create(self, validated_data):
         user = User(
