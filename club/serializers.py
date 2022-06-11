@@ -32,7 +32,6 @@ class AdminUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    groups = GroupSerializer(many=True,)
     
     class Meta:
         model = User
