@@ -1,5 +1,3 @@
-from unicodedata import category
-
 from django.shortcuts import get_object_or_404
 from .models import *
 from rest_framework.viewsets import ModelViewSet
@@ -7,8 +5,6 @@ from .serializers import *
 from rest_framework import authentication, permissions
 from .permissions import *
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
-from .serializers import AdminUserSerializer, UserSerializer
-from rest_framework import authentication, permissions
 
 
 User = get_user_model()
