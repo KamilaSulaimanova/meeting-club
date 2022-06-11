@@ -60,9 +60,8 @@ class PostViewSet(ModelViewSet):
 
     # def get_queryset(self):
     #     user = self.request.user
-    #     for p in self.queryset.iterator():
-    #         if 
-    #     return Post.objects.filter(group_id__in=user.groups.id)
+    #     queryset = [val for val in Post.objects.all() if val in ]
+    #     return Post.objects.filter(group_id__in=user.groups)
 
     
 
@@ -86,6 +85,6 @@ class LikeViewSet(ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-def search(request):
-    category_id = get_object_or_404(Category, id=id)
-    queryset = Group.objects.filter(category=category_id)
+# def search(request):
+#     category_id = get_object_or_404(Category, id=id)
+#     queryset = Group.objects.filter(category=category_id)
