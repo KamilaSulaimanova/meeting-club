@@ -1,8 +1,8 @@
 from .models import *
 from rest_framework.viewsets import ModelViewSet
-from .serializers import CategorySerializer, GroupSerializer
+from .serializers import *
 from rest_framework import authentication, permissions
-from .permissions import IsSafeIsAuthenticated
+from .permissions import *
 from .models import User
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from .serializers import AdminUserSerializer, UserSerializer
@@ -43,3 +43,31 @@ class UserProfile(ModelViewSet):
 
     def get_object(self):
         return self.request.user
+
+
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [ permissions.IsAdminUser, ]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    
+
+class CommentViewSet(ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthor,  permissions.IsAdminUser ]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class LikeViewSet(ModelViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+    permission_classes = [IsAuthor,  permissions.IsAdminUser ]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
