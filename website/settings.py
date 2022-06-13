@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-j=l%&fcc_v=6=7i3ft%@v12vc*pot$fj*l&^2sr(!_9!%*&fsz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['meeting-club.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['meeting-club.herokuapp.com', '127.0.0.1', '192.168.0.189',]
 
 
 # Application definition
@@ -41,14 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'club',
-    # 'corsheaders',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -124,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
@@ -138,6 +138,6 @@ AUTH_USER_MODEL = 'club.User'
 LOGIN_REDIRECT_URL = 'profile/<int:pk>/'
 
 
-# CORS_ALLOWED_ORIGINS = [
-#     "localhost:3000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]

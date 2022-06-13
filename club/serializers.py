@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['email', 'password', 'full_name', 'instagram', 'facebook', 'telegram', 'groups',]
+        fields = ['email', 'password', 'full_name', ]
 
     def create(self, validated_data):
         user = User(
@@ -45,6 +45,14 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save() 
         return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['email', 'password', 'full_name', 'instagram', 'facebook', 'telegram', 'groups',]
+
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:

@@ -14,14 +14,14 @@ class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
-    permission_classes = [IsSafeIsAuthenticated, permissions.IsAdminUser]
+    permission_classes = [IsSafeIsAuthenticated, permissions.IsAdminUser, ]
 
 
 class GroupViewSet(ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
-    permission_classes = [IsSafeIsAuthenticated, permissions.IsAdminUser ]
+    permission_classes = [IsSafeIsAuthenticated, permissions.IsAdminUser, ]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -39,7 +39,7 @@ class UserCreateView(CreateAPIView):
 
 class UserProfile(ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserProfileSerializer
     http_method_names = ['get', 'put', 'delete',]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
