@@ -3,7 +3,10 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 class IsSafeIsAuthenticated(BasePermission):
     def has_permission(self, request, view):
-        if request.user.is_authenticated and request.method in SAFE_METHODS:
+        if request.method in SAFE_METHODS:
+            if request.user.is_authenticated:
+                return True
+        elif request.user and request.user.is_staff:
             return True
 
 

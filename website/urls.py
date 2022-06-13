@@ -16,7 +16,7 @@ router.register('like', views.LikeViewSet, basename='like')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token),
+    path('api-token-auth/', views.CustomObtainAuthToken.as_view()),
     path('auth/', include('rest_framework.urls')),
     path('create-admin/', views.AdminUserCreateAPIView.as_view()),
     path('create/', views.UserCreateView.as_view()),
