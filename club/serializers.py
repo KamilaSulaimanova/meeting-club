@@ -1,7 +1,13 @@
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth import authenticate
+from django.core.mail import send_mail
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+import os
+import math
+import random
+import smtplib
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -37,12 +43,14 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['email', 'password', 'full_name', ]
+        fields = ['email', 'password', 'full_name']
+        read_only_fields = ['is_verified', 'otp']
 
     def create(self, validated_data):
         user = User(
             email=validated_data['email'],
             full_name=validated_data['full_name'],
+            
         )
         user.set_password(validated_data['password'])
         user.save() 
@@ -100,9 +108,6 @@ class AuthTokenSerializer(serializers.Serializer):
             user = authenticate(request=self.context.get('request'),
                                 email=email, password=password)
 
-            # The authenticate call simply returns None for is_active=False
-            # users. (Assuming the default ModelBackend authentication
-            # backend.)
             if not user:
                 msg = _('Unable to log in with provided credentials.')
                 raise serializers.ValidationError(msg, code='authorization')

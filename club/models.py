@@ -26,6 +26,8 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     username = None
     email = models.EmailField(blank=False, null=False, unique=True)
+    is_verified = models.BooleanField(default=False)
+    otp = models.CharField(max_length=4, null=True, blank=True)
     full_name = models.CharField(max_length=250, )
     instagram = models.URLField(max_length=250, null=True, blank=True)
     telegram = models.URLField(max_length=250, null=True, blank=True)

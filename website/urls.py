@@ -21,4 +21,5 @@ urlpatterns = [
     path('create-admin/', views.AdminUserCreateAPIView.as_view()),
     path('create/', views.UserCreateView.as_view()),
     path('', include(router.urls)),
+    path('otp_verify/', views.verify_otp, name='otp_verify')
 ]
